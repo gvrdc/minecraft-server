@@ -5,13 +5,30 @@ services:
       - SYS_PTRACE
     environment:
       EULA: "TRUE"
-      MEMORY: "6G"
+      MEMORY: "4G"
       VERSION: "1.20.4"
       ENABLE_AUTOPAUSE: "FALSE"
       ONLINE_MODE: "FALSE"
     ports:
       - "25565:25565"
-      - "25575:25575"
     volumes:
       - ./data:/data
+    restart: unless-stopped
+
+  node-exporter:
+    image: prom/node-exporter
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
     restart: unless-stopped

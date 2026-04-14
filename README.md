@@ -25,3 +25,10 @@ docker compose up -d
 ## Мониторинг
 Grafana доступна на порту 3000.
 Дашборд Node Exporter Full (ID: 1860).
+
+## Безопасность
+Firewall настроен через ufw, открыты только необходимые порты:
+- 22 (SSH)
+- 25565 (Minecraft)
+- 3000 (Grafana)
+- 9090 (Prometheus)

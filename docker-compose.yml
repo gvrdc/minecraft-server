@@ -5,8 +5,8 @@ services:
       - SYS_PTRACE
     environment:
       EULA: "TRUE"
-      MEMORY: "4G"
-      VERSION: "1.20.4"
+      MEMORY: ${MINECRAFT_MEMORY}
+      VERSION: ${MINECRAFT_VERSION}
       ENABLE_AUTOPAUSE: "FALSE"
       ONLINE_MODE: "FALSE"
     ports:
@@ -29,6 +29,8 @@ services:
 
   grafana:
     image: grafana/grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
     ports:
       - "3000:3000"
     restart: unless-stopped

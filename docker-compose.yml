@@ -27,10 +27,24 @@ services:
       - "9090:9090"
     restart: unless-stopped
 
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    restart: unless-stopped
+
   grafana:
     image: grafana/grafana
     environment:
       GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
+      GF_SERVER_ROOT_URL: ${GF_SERVER_ROOT_URL}
+      GF_SERVER_SERVE_FROM_SUB_PATH: ${GF_SERVER_SERVE_FROM_SUB_PATH}
     ports:
       - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
     restart: unless-stopped
+volumes:
+    grafana_data:

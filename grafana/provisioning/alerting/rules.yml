@@ -1,0 +1,29 @@
+apiVersion: 1
+
+groups:
+  - orgId: 1
+    name: default
+    folder: minecraft
+    interval: 1m
+    rules:
+      - uid: high-cpu
+        title: High CPU
+        condition: C
+        for: 5m
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: 100 - (avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+          - refId: C
+            datasourceUid: "__expr__"
+            model:
+              type: threshold
+              conditions:
+                - evaluator:
+                    type: gt
+                    params:
+                      - 80

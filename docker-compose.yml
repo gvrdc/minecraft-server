@@ -41,10 +41,13 @@ services:
       GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
       GF_SERVER_ROOT_URL: ${GF_SERVER_ROOT_URL}
       GF_SERVER_SERVE_FROM_SUB_PATH: ${GF_SERVER_SERVE_FROM_SUB_PATH}
+      ATLASSIAN_TOKEN: ${ATLASSIAN_TOKEN}
+      ATLASSIAN_USER: ${ATLASSIAN_USER}
     ports:
       - "3000:3000"
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
     restart: unless-stopped
 volumes:
     grafana_data:
